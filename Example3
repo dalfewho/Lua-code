@@ -1,0 +1,34 @@
+local debounce = true
+local coin = game.Workspace.coin
+local points = 0
+local walkspeed = 16
+
+AREA_CENTER_X = 100  -- Center X of spawn area
+AREA_CENTER_Z = 100  -- Center Z of spawn area
+AREA_SIZE = 150 
+
+
+
+local function score()  
+ points += 10
+ walkspeed += 5
+ print("you have ".. points.. " points, Your speed is now " .. walkspeed .."!!!!")
+end
+
+
+coin.Touched:Connect(function(hit)
+ local Player = game.Players:GetPlayerFromCharacter(hit.Parent)
+ if Player and debounce == true then
+  debounce = false
+  local x = AREA_CENTER_X + (math.random() - 0.5) * AREA_SIZE
+  local z = AREA_CENTER_Z + (math.random() - 0.5) * AREA_SIZE
+  
+  score()
+  
+  coin.Position = Vector3.new(x, 7, z)
+  task.wait(0.2)
+  hit.Parent.Humanoid.WalkSpeed += 5
+  task.wait(0.3)
+  debounce = true
+  end
+end)
