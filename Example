@@ -1,0 +1,28 @@
+local obby = game.Workspace.parts["Obby Stairs"]
+local block = game.Workspace.parts["Obby Stairs"]:GetChildren()
+local debounce = true
+local ig = false
+local number = 1
+local clicked = game.Workspace.parts.TouchPart.ClickDetector
+
+
+
+
+clicked.MouseClick:Connect(function(player)
+ if ig == false then
+for index, part in pairs(obby:GetChildren()) do
+ local matdh = math.random(1, 255)
+   local math = math.random(1, 255)
+ part.Color = Color3.fromRGB(0, 0, 0)
+ task.wait(0.10)
+ ig = true
+end
+ elseif ig == true then
+  for index, part in pairs(obby:GetChildren()) do
+   local math = math.random(1, 255)
+   part.Color = Color3.fromRGB(255, 255, 255)
+   task.wait(0.10)
+   ig = false
+  end
+ end
+end)
