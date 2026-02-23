@@ -1,0 +1,41 @@
+local debounce = false
+local stairs = game.Workspace.parts["Obby Stairs"]:GetChildren()
+local tween = game:GetService("TweenService")
+
+
+
+
+for _, stair in pairs(stairs) do
+ local debounce = false
+ stair.Touched:Connect(function(hit)
+  if hit.Parent:FindFirstChild("Humanoid") and not debounce then
+   debounce = true
+   local growTween = tween:Create(
+    stair,  -- The specific stair
+    TweenInfo.new(0.1),
+    {
+     Color = Color3.fromRGB(255, 255, 255)
+     
+    }
+   )
+   
+   local shrinkTween = tween:Create(
+    stair,  -- The specific stair
+    TweenInfo.new(0.25),
+    {
+     Color = Color3.fromRGB(0, 0, 0)
+    }
+   )
+
+   if stair.Color == Color3.fromRGB(0, 0, 0) then
+    return
+   else
+   growTween:Play()
+   growTween.Completed:Wait()
+   shrinkTween:Play()
+   shrinkTween.Completed:Wait()
+   debounce = false
+   end
+  end
+ end)
+end
